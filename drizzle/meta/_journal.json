@@ -1,0 +1,41 @@
+{
+  "version": "7",
+  "dialect": "sqlite",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "6",
+      "when": 1789930479599,
+      "tag": "0000_nasty_lizard",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1789932266591,
+      "tag": "0001_wealthy_the_fury",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1790072216817,
+      "tag": "0002_lean_stellaris",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "6",
+      "when": 1790073835843,
+      "tag": "0003_curvy_the_initiative",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "6",
+      "when": 1790101673559,
+      "tag": "0004_opposite_blackheart",
+      "breakpoints": true
+    }
+  ]
+}

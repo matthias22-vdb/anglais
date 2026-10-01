@@ -1,0 +1,142 @@
+.game-panel {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 9px;
+  margin: -7px 0 18px;
+}
+.grade-detail { display: block; color: var(--muted); font-size: .75rem; line-height: 1.5; }
+#grade-breakdown { margin-top: 4px; color: var(--blue); font-weight: 700; }
+.overview { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+.overview-right .eyebrow { letter-spacing: .4px; }
+.grade-notes { grid-column: 1 / -1; }
+/* The heading receives focus for reading order, without a browser frame. */
+#sentence:focus { outline: none; }
+#options .option.hint-eliminated {
+  border-color: var(--red);
+  background: #fff4f4;
+  color: var(--red);
+  box-shadow: none;
+}
+#options .hint-eliminated .letter { background: #f8dfe2; color: var(--red); }
+#options .hint-eliminated .word { text-decoration: line-through; }
+#options .hint-eliminated .answer-status { color: var(--red); }
+.app-header { align-items: center; }
+.brand { min-width: 0; font-size: 1rem; }
+.brand small { display: none; }
+.brand .mark { width: 34px; height: 38px; font-size: 1.3rem; }
+.header-actions { flex-direction: row; }
+.overview { background: white; border: 1px solid var(--line); border-radius: 16px; padding: 12px; }
+.overview-right { text-align: left; }
+.overview .eyebrow { letter-spacing: 0; }
+.grade-notes { padding-top: 6px; border-top: 1px solid var(--line); }
+.grade-notes #grade-detail, .grade-notes > .grade-detail:last-child { display: none; }
+.about { margin-top: 12px; }
+.about > summary { padding: 8px 0; font-size: .875rem; }
+.actionbar:has(#next[hidden]) { display: none; }
+.question-bottom { flex-wrap: wrap; gap: 0 8px; }
+.question-bottom #save-status { font-size: .75rem; }
+@media (max-width: 599px) {
+  .app-header .header-actions { flex-direction: row; }
+  .app-header .logout { padding: 4px; font-size: .75rem; }
+  .brand strong { font-size: 1rem; }
+  .game-panel { grid-template-columns: 1fr 1fr; }
+  .daily-goal { padding: 7px 12px; }
+  .daily-goal small { display: none; }
+  .question-bottom .plain { padding: 5px 0; }
+}
+
+/* Two readable rows instead of four tall answer rows. */
+#options { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+#options .option {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 6px 8px;
+  min-width: 0;
+  align-content: center;
+}
+#options .answer-status {
+  grid-column: 1 / -1;
+  max-width: none;
+  text-align: left;
+}
+
+@media (max-width: 599px) {
+  .shell { padding-top: 12px; }
+  .app-header { margin-bottom: 12px; }
+  .overview { gap: 4px 12px; margin-bottom: 14px; }
+  .grade-notes { display: flex; flex-wrap: wrap; gap: 2px 12px; }
+  #grade-breakdown { order: -1; flex-basis: 100%; margin-top: 0; }
+  .game-panel { gap: 6px; margin-bottom: 10px; }
+  .game-score { padding: 6px 10px; }
+  .daily-goal { padding: 8px 12px; }
+  .series-picker { margin-bottom: 8px; }
+  main { padding: 16px 12px; }
+  #progress { margin: 10px 0 14px; }
+  #options { gap: 8px; }
+  #options .option { padding: 10px 8px; }
+  .helpers { margin-top: 12px; }
+}
+
+.game-score,
+.daily-goal {
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+}
+
+.game-score {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 9px 10px;
+}
+
+.game-score > span { font-size: 1.25rem; }
+.game-score p { margin: 0; line-height: 1.2; }
+.game-score strong { font-size: 1.125rem; font-variant-numeric: tabular-nums; }
+.game-score small { font-size: .75rem; color: var(--muted); }
+
+.daily-goal {
+  grid-column: 1 / -1;
+  padding: 11px 13px;
+}
+
+.daily-goal > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  font-size: .875rem;
+}
+
+.daily-goal > div span { color: var(--blue); font-weight: 750; }
+.daily-goal progress { height: 6px; margin: 8px 0 5px; }
+.daily-goal small { display: block; color: var(--muted); font-size: .75rem; }
+.daily-goal.done { background: #f0f8f4; border-color: #b9dcc9; }
+.daily-goal.done progress::-webkit-progress-value { background: var(--green); }
+.daily-goal.done progress::-moz-progress-bar { background: var(--green); }
+
+.option { box-shadow: 0 2px 0 #dfe6ef; }
+.option.correct { box-shadow: 0 2px 0 #b9dcc9; }
+.option.wrong { box-shadow: 0 2px 0 #edc5c9; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .option { transition: background .12s, border-color .12s, transform .12s; }
+  .option:not(:disabled):active { transform: translateY(2px); box-shadow: none; }
+  .feedback.good h2 { animation: reward-pop .28s ease-out; }
+  @keyframes reward-pop {
+    0% { transform: scale(.94); opacity: .4; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+}
+
+.progress-panel { margin-top: 24px; padding: 20px 16px; border: 1px solid var(--line); border-radius: 20px; background: white; }
+.progress-panel h2 { margin: 0; font-size: 1.25rem; }
+.progress-panel p { font-size: 1rem; }
+.progress-panel .muted { font-size: .875rem; }
+#history-chart svg { display: block; width: 100%; min-width: 420px; }
+#history-chart, .history-scroll { overflow-x: auto; }
+.history-table { width: 100%; border-collapse: collapse; font-size: .875rem; text-align: left; }
+.history-table th, .history-table td { padding: 10px 8px; border-bottom: 1px solid var(--line); }
+.history-table caption { text-align: left; font-weight: 600; }

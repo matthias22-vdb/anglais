@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#132c4a">
+<meta id="app-description-meta" name="description" content="Application d’entraînement à l’anglais avec 500 questions, des corrections et des explications simples en français.">
+<title>Application d’entraînement à l’anglais</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='15' fill='%23132c4a'/%3E%3Ctext x='32' y='44' font-size='40' text-anchor='middle' fill='white' font-family='sans-serif'%3EE%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="./style.css?v=7">
+<link rel="stylesheet" href="./game.css?v=21">
+<link rel="stylesheet" href="./auth.css?v=7">
+<script src="./config.js?v=7"></script>
+<script defer src="./questions.js?v=4"></script>
+<script defer src="./progress.js?v=9"></script>
+<script defer src="./sync.js?v=6"></script>
+<script defer src="./hints.js?v=22"></script>
+<script defer src="./app.js?v=27"></script>
+<script defer src="./auth.js?v=24"></script>
+</head>
+<body>
+<section class="login-screen" id="login-screen" aria-labelledby="login-title">
+  <div class="login-card">
+    <div class="login-brand" aria-hidden="true">E</div>
+    <p class="login-product" id="login-product">ENGLISH POCKET EXAM</p>
+    <h1 id="login-title">Connexion</h1>
+    <p class="login-intro" id="login-intro">Connecte-toi avec ton compte personnel. Tes résultats resteront liés à ton profil.</p>
+    <a class="primary login-submit secure-login" id="secure-login" href="/login?return_to=%2Fstudent%2Findex.html" target="_top">Se connecter</a>
+    <form id="class-form" hidden novalidate>
+      <label for="class-code">Code du professeur · facultatif</label>
+      <input id="class-code" name="classCode" type="text" inputmode="text" autocomplete="one-time-code" autocapitalize="characters" spellcheck="false" maxlength="6" placeholder="Exemple : AB3K7P">
+      <p class="login-intro">Si tu as un professeur, son code relie tes statistiques à sa classe. Sinon, continue sans code.</p>
+      <button class="primary login-submit" type="submit">Rejoindre ma classe</button>
+      <button type="button" id="skip-class" class="plain">Continuer sans professeur</button>
+    </form>
+    <p id="login-error" class="login-error" role="alert" aria-live="polite" hidden></p>
+  </div>
+</section>
+<div class="shell" id="app-shell" hidden>
+  <header class="app-header">
+    <a class="brand" href="./" aria-label="Reprendre l’application"><span class="mark" aria-hidden="true">E</span><span><strong id="product-name">Application d’anglais</strong><small id="product-description">Entraînement en anglais</small></span></a>
+    <div class="header-actions"><button class="logout" id="logout" type="button">Accueil</button></div>
+  </header>
+  <section class="recovery-panel" id="recovery-panel" hidden aria-label="Retrouver ma progression">
+    <strong>Tu ne vois plus ta progression ?</strong>
+    <p id="recovery-local-text" hidden></p>
+    <button type="button" id="recover-local" hidden>Reprendre ma progression sur cet appareil</button>
+    <a href="/api/demo/restore-owner">Ouvrir mon ancien compte pour retrouver mes résultats</a>
+  </section>
+  <div class="overview" aria-label="Avancement du parcours">
+    <div><span class="eyebrow">MON PARCOURS</span><p><strong id="done-count">0</strong><span> / 500 travaillées</span></p></div>
+    <div class="overview-right"><span class="eyebrow">NOTE D’ENTRAÎNEMENT</span><p><strong id="practice-grade">—</strong><span> / 20</span></p></div><div class="grade-notes"><small class="grade-detail" id="grade-detail">Mise à jour après chaque réponse.</small><small class="grade-detail" id="grade-breakdown">Anglais — / 14 + bonus de progression 0 / 6 = — / 20</small><small class="grade-detail"><span id="correct-count">0</span> réponse(s) juste(s) · dernier essai</small></div>
+    <progress id="overall-progress" max="500" value="0" aria-label="Questions travaillées sur 500"></progress>
+  </div>
+  <section class="game-panel" aria-label="Mes récompenses">
+    <div class="game-score"><span aria-hidden="true">⭐</span><p><strong id="xp-count">0</strong><small> points</small></p></div>
+    <div class="game-score"><span aria-hidden="true">🔥</span><p><strong id="streak-count">0</strong><small> de suite</small></p></div>
+    <div class="daily-goal" id="daily-goal"><div><strong>Mission du jour</strong><span id="daily-count">0 / 10</span></div><progress id="daily-progress" max="10" value="0" aria-label="Mission du jour : questions travaillées sur 10"></progress><small id="daily-message">Encore 10 questions. Tu peux le faire !</small></div>
+  </section>
+  <p id="save-warning" class="warning" role="alert" hidden></p>
+  <nav class="modes" aria-label="Mode d’entraînement">
+    <button type="button" id="learn" class="active" aria-pressed="true">M’entraîner</button>
+    <button type="button" id="review" aria-pressed="false">Revoir mes erreurs <span id="error-count">0</span></button>
+  </nav>
+  <details class="series-picker" id="series-panel">
+    <summary><span id="series-label">Série 1 sur 25</span><span class="series-caption">Choisir une série</span></summary>
+    <p class="muted">20 questions par série. Tu peux les faire à ton rythme.</p>
+    <div class="series-grid" id="series-list"></div>
+  </details>
+  <main id="quiz" aria-label="Question d’entraînement">
+    <div class="question-top"><span id="category" class="tag">Grammaire</span><span id="position">Question 1 / 500</span></div>
+    <progress id="progress" max="20" value="0" aria-label="Avancement dans la série"></progress>
+    <h1 id="sentence" lang="en" tabindex="-1">Chargement de la question…</h1>
+    <p class="instruction">Touche une réponse : elle sera corrigée tout de suite.</p>
+    <fieldset id="options"><legend class="sr-only">Quatre réponses possibles</legend></fieldset>
+    <div class="helpers">
+      <button type="button" id="hint-button" class="help-button" aria-expanded="false" aria-controls="hint">Un indice</button>
+      <button type="button" id="translation-button" class="help-button" aria-expanded="false" aria-controls="translation">Traduction</button>
+    </div>
+    <p id="hint" class="help-text" style="white-space: pre-line" aria-live="polite" hidden></p>
+    <p id="translation" class="help-text translation" hidden></p>
+    <details id="reasoning" class="reasoning"><summary>Expliquer mon choix <span>facultatif</span></summary><label class="sr-only" for="reason">Mon raisonnement</label><textarea id="reason" rows="2" maxlength="3000" placeholder="Je choisis cette réponse parce que…"></textarea><small>Une note pour toi, gardée sur cet appareil. Pas de correction automatique.</small></details>
+    <section id="feedback" class="feedback" hidden>
+      <h2 id="verdict" tabindex="-1" aria-live="polite"></h2>
+      <p id="explanation"></p>
+      <div class="remember"><span class="eyebrow">LE PETIT REPÈRE À RETENIR</span><p id="rule"></p></div>
+      <details id="alternatives"><summary>Pourquoi pas les autres réponses ?</summary><ul id="reasons"></ul></details>
+    </section>
+    <div class="actionbar"><button type="button" id="validate" hidden disabled>Valider</button><button type="button" id="next" class="primary" hidden>Question suivante →</button></div>
+    <div class="question-bottom"><button type="button" id="previous" class="plain">← Précédente</button><span id="save-status">Progression sur cet appareil</span></div>
+    <p id="pause" class="pause" hidden>Une série de plus ! Tu peux faire une pause et reprendre ici.</p>
+  </main>
+  <section id="empty" class="end-screen" hidden>
+    <span class="tag">Ton entraînement</span><h1 id="end-title" tabindex="-1"></h1><p id="end-text"></p>
+    <button type="button" id="return" class="primary">Reprendre le parcours</button>
+    <button type="button" id="review-end" class="secondary">Revoir mes erreurs</button>
+    <button type="button" id="redo" class="plain">Recommencer le parcours</button>
+  </section>
+  <details class="about" id="about-panel"><summary>Infos et détails de ma progression</summary><div>  <footer><p id="stats"></p><p>250 questions de grammaire · 250 expressions professionnelles</p><p id="product-secondary">Entraînement en anglais</p><p id="trademark-notice"></p></footer>
+
+    <p>Le parcours alterne grammaire et expressions. Certaines notions reviennent dans d’autres phrases pour t’aider à les revoir. Les indices et les traductions sont facultatifs.</p>
+    <p>« Justes » compte la dernière réponse donnée à chaque question, avec ou sans aide. Ce n’est pas un score TOEIC officiel.</p>
+    <p>Ta moyenne en direct comprend deux parties : la maîtrise de l’anglais vaut 14 points et le bonus de progression vaut 6 points. Le bonus augmente jusqu’à 100 questions différentes. La moyenne est recalculée immédiatement après chaque réponse ; répéter une question ne donne pas un nouveau bonus. Cette note personnelle d’entraînement n’est pas une note scolaire validée par l’ISTEC.</p>
+    <p>Chaque question différente travaillée vaut 2 points et chaque réponse juste vaut 10 points supplémentaires. Les points continuent donc d’augmenter au-delà de 100 questions. La mission quotidienne compte jusqu’à dix nouvelles questions par jour sur cet appareil.</p>
+    <p>Tes réponses et tes notes restent sur cet appareil et dans ce navigateur. Les statistiques sont transmises au professeur de ta classe lorsque la connexion est disponible. Effacer les données du navigateur les supprime.</p>
+    <p>Cette version s’ouvre avec Internet. L’installation et la réouverture hors ligne restent pour une prochaine étape.</p>
+  </div></details>
+  <noscript>Active JavaScript dans ton navigateur pour utiliser le quiz.</noscript>
+</div>
+</body></html>

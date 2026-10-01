@@ -1,0 +1,1 @@
+ALTER TABLE `student_progress` ADD `state_json` text DEFAULT '{}' NOT NULL;

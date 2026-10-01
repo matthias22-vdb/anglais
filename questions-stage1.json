@@ -1,0 +1,442 @@
+[
+  {
+    "category": "Grammaire",
+    "topic": "Obligation",
+    "sentence": "Factory visitors must _____ safety glasses.",
+    "translation": "Les visiteurs de l’usine doivent porter des lunettes de protection.",
+    "options": [
+      "wear",
+      "wearing",
+      "wears",
+      "wore"
+    ],
+    "hint": "Repère must : le verbe juste après garde sa forme simple.",
+    "rule": "Must + verbe simple : must wear = devoir porter.",
+    "answer": 0,
+    "feedback": [
+      "Après must, on garde le verbe simple : wear. Le sujet ne change pas cette règle.",
+      "Wearing porte -ing. Cette forme ne suit pas directement must.",
+      "Wears porte un s. Après must, on garde wear sans s.",
+      "Wore est au passé. Après must, il faut la forme simple wear."
+    ],
+    "id": "q001"
+  },
+  {
+    "category": "Expression professionnelle",
+    "topic": "Respecter une échéance",
+    "sentence": "We must _____ the deadline for the annual report.",
+    "translation": "Nous devons respecter la date limite du rapport annuel.",
+    "options": [
+      "arrive",
+      "attend",
+      "join",
+      "meet"
+    ],
+    "hint": "L’équipe veut finir à temps.",
+    "rule": "Meet a deadline = respecter une échéance.",
+    "answer": 3,
+    "feedback": [
+      "Arrive veut dire arriver. On ne dit pas arrive the deadline.",
+      "Attend veut dire assister à, comme attend a meeting. Une date limite n’est pas une réunion.",
+      "Join veut dire rejoindre, comme rejoindre une équipe.",
+      "Meet a deadline = respecter une échéance."
+    ],
+    "id": "q002"
+  },
+  {
+    "category": "Grammaire",
+    "topic": "Passif au passé, pluriel",
+    "sentence": "The invoices _____ checked by the accountant yesterday.",
+    "translation": "Les factures ont été vérifiées par le comptable hier.",
+    "options": [
+      "have",
+      "were",
+      "are",
+      "was"
+    ],
+    "hint": "Regarde le sujet pluriel et le moment passé.",
+    "rule": "They were + participe passé : ils ont été…",
+    "answer": 1,
+    "feedback": [
+      "Have ne forme pas le passif ici. Les objets reçoivent l’action.",
+      "Were convient : il y en a plusieurs et l’action a eu lieu dans le passé.",
+      "Are est au présent. Le moment indiqué est passé.",
+      "Was accompagne une seule chose. Le sujet est au pluriel."
+    ],
+    "id": "q003"
+  },
+  {
+    "category": "Expression professionnelle",
+    "topic": "Passer une commande",
+    "sentence": "Please _____ an order for twenty chairs.",
+    "translation": "Merci de passer une commande de vingt chaises.",
+    "options": [
+      "spend",
+      "borrow",
+      "place",
+      "attend"
+    ],
+    "hint": "On veut commander quelque chose.",
+    "rule": "Place an order = passer une commande.",
+    "answer": 2,
+    "feedback": [
+      "Spend veut dire dépenser de l’argent ou passer du temps, pas passer une commande.",
+      "Borrow veut dire emprunter. Ici, on veut acheter des chaises.",
+      "Place an order = passer une commande.",
+      "Attend veut dire assister à un événement, pas commander."
+    ],
+    "id": "q004"
+  },
+  {
+    "category": "Grammaire",
+    "topic": "Passif au passé, singulier",
+    "sentence": "The parcel _____ delivered by the courier yesterday.",
+    "translation": "Le colis a été livré par le coursier hier.",
+    "options": [
+      "is",
+      "was",
+      "were",
+      "has"
+    ],
+    "hint": "Une seule chose reçoit l’action à un moment passé.",
+    "rule": "It was + participe passé : cela a été…",
+    "answer": 1,
+    "feedback": [
+      "Is est au présent. La phrase indique un moment passé.",
+      "Was convient pour une seule chose, dans le passé.",
+      "Were accompagne notamment they. Ici, il s’agit d’une seule chose.",
+      "Has ne forme pas le passif ici. Le sujet reçoit l’action."
+    ],
+    "id": "q005"
+  },
+  {
+    "category": "Expression professionnelle",
+    "topic": "Demander à obtenir",
+    "sentence": "You can apply _____ a refund on our website.",
+    "translation": "Tu peux demander un remboursement sur notre site.",
+    "options": [
+      "with",
+      "for",
+      "on",
+      "at"
+    ],
+    "hint": "Repère apply : on demande à obtenir quelque chose.",
+    "rule": "Apply for something = faire une demande pour obtenir quelque chose.",
+    "answer": 1,
+    "feedback": [
+      "With veut dire avec. Pour demander un remboursement, on dit apply for.",
+      "Apply for something = faire une demande pour obtenir quelque chose.",
+      "On ne convient pas après apply pour demander à obtenir quelque chose.",
+      "At ne convient pas ici. Apply for a refund signifie demander un remboursement."
+    ],
+    "id": "q006"
+  },
+  {
+    "category": "Grammaire",
+    "topic": "Chaque personne",
+    "sentence": "Each employee _____ a personal access code.",
+    "translation": "Chaque employé possède un code d’accès personnel.",
+    "options": [
+      "are",
+      "has",
+      "having",
+      "have"
+    ],
+    "hint": "Chaque personne : on les prend une par une.",
+    "rule": "Each / every + nom singulier → has.",
+    "answer": 1,
+    "feedback": [
+      "Are veut dire sont. Il ne convient ni au singulier ni au sens.",
+      "Each ou every présente une personne à la fois : on utilise has.",
+      "Having seul ne fait pas un verbe conjugué complet.",
+      "Have ne convient pas avec ce sujet singulier."
+    ],
+    "id": "q007"
+  },
+  {
+    "category": "Expression professionnelle",
+    "topic": "Responsable de",
+    "sentence": "Our assistant is responsible _____ booking flights.",
+    "translation": "Notre assistant est responsable de la réservation des vols.",
+    "options": [
+      "for",
+      "with",
+      "at",
+      "by"
+    ],
+    "hint": "La phrase indique la tâche dont la personne est responsable.",
+    "rule": "Responsible for = responsable de.",
+    "answer": 0,
+    "feedback": [
+      "Responsible for = responsable de.",
+      "With ne complète pas responsible pour indiquer une tâche.",
+      "At convient dans good at, mais pas dans responsible for.",
+      "By ne complète pas responsible pour désigner une responsabilité."
+    ],
+    "id": "q008"
+  },
+  {
+    "category": "Grammaire",
+    "topic": "Manière de faire",
+    "sentence": "Please read the instructions _____ before using the machine.",
+    "translation": "Lis les instructions attentivement avant d’utiliser la machine.",
+    "options": [
+      "careful",
+      "care",
+      "careless",
+      "carefully"
+    ],
+    "hint": "Le mot répond à la question : comment faire cette action ?",
+    "rule": "Verbe + carefully = faire quelque chose avec attention.",
+    "answer": 3,
+    "feedback": [
+      "Careful décrit une personne ou une chose. Ici, on décrit une action.",
+      "Care est un nom ou un verbe ; il ne signifie pas avec attention ici.",
+      "Careless décrit quelqu’un de peu soigneux. Il ne décrit pas l’action sous cette forme.",
+      "Carefully explique comment faire l’action : avec attention."
+    ],
+    "id": "q009"
+  },
+  {
+    "category": "Expression professionnelle",
+    "topic": "Participer à",
+    "sentence": "All staff can _____ part in the training.",
+    "translation": "Tout le personnel peut participer à la formation.",
+    "options": [
+      "give",
+      "take",
+      "make",
+      "do"
+    ],
+    "hint": "On invite les personnes à participer.",
+    "rule": "Take part in = participer à.",
+    "answer": 1,
+    "feedback": [
+      "Give veut dire donner. Give part in ne veut pas dire participer.",
+      "Take part in = participer à.",
+      "Make part in n’est pas l’expression participer à.",
+      "Do your part veut dire faire sa part, mais do part in ne convient pas."
+    ],
+    "id": "q010"
+  },
+  {
+    "category": "Grammaire",
+    "topic": "Décrire une chose",
+    "sentence": "We need a _____ supplier for our new shop.",
+    "translation": "Nous avons besoin d’un fournisseur fiable pour notre nouvelle boutique.",
+    "options": [
+      "reliable",
+      "reliably",
+      "rely",
+      "reliability"
+    ],
+    "hint": "Le trou se trouve devant la chose qu’on décrit.",
+    "rule": "Reliable + nom = une chose fiable.",
+    "answer": 0,
+    "feedback": [
+      "Reliable décrit la chose : elle est fiable, on peut compter dessus.",
+      "Reliably décrit comment on fait une action, pas directement une chose.",
+      "Rely est un verbe : compter sur. Ici, il faut une qualité.",
+      "Reliability est le nom fiabilité. Ici, on cherche une qualité."
+    ],
+    "id": "q011"
+  },
+  {
+    "category": "Expression professionnelle",
+    "topic": "À jour",
+    "sentence": "Please keep your contact details up to _____.",
+    "translation": "Merci de garder tes coordonnées à jour.",
+    "options": [
+      "day",
+      "year",
+      "date",
+      "hour"
+    ],
+    "hint": "Il faut garder les informations actuelles.",
+    "rule": "Up to date = à jour.",
+    "answer": 2,
+    "feedback": [
+      "Day veut dire jour, mais up to day ne veut pas dire à jour.",
+      "Year veut dire année. L’expression à retenir est up to date.",
+      "Up to date = à jour.",
+      "Hour veut dire heure. L’expression à retenir est up to date."
+    ],
+    "id": "q012"
+  },
+  {
+    "category": "Grammaire",
+    "topic": "Nom après plusieurs",
+    "sentence": "We received several _____ for the position.",
+    "translation": "Nous avons reçu plusieurs candidatures pour le poste.",
+    "options": [
+      "applying",
+      "applications",
+      "applicable",
+      "apply"
+    ],
+    "hint": "On parle de plusieurs candidatures. Il faut un nom au pluriel.",
+    "rule": "Application = candidature ; applications = candidatures.",
+    "answer": 1,
+    "feedback": [
+      "Applying est une forme du verbe postuler. Il faut ici un nom pluriel.",
+      "Applications est un nom au pluriel : des candidatures.",
+      "Applicable décrit quelque chose qui peut s’appliquer. Ce n’est pas une candidature.",
+      "Apply est un verbe : postuler. Ici, il faut ce qu’on a reçu ou examiné."
+    ],
+    "id": "q013"
+  },
+  {
+    "category": "Expression professionnelle",
+    "topic": "Gratuit",
+    "sentence": "Delivery is free of _____ for orders over fifty euros.",
+    "translation": "La livraison est gratuite pour les commandes de plus de cinquante euros.",
+    "options": [
+      "invoice",
+      "salary",
+      "price",
+      "charge"
+    ],
+    "hint": "Le client ne doit rien payer.",
+    "rule": "Free of charge = gratuit, sans frais.",
+    "answer": 3,
+    "feedback": [
+      "Invoice veut dire facture. Free of invoice ne signifie pas gratuit.",
+      "Salary veut dire salaire. La phrase parle du prix de la livraison.",
+      "Price veut dire prix, mais l’expression est free of charge.",
+      "Free of charge = gratuit, sans frais."
+    ],
+    "id": "q014"
+  },
+  {
+    "category": "Grammaire",
+    "topic": "Depuis un point de départ",
+    "sentence": "She has worked here _____ 2021.",
+    "translation": "Elle travaille ici depuis 2021.",
+    "options": [
+      "during",
+      "since",
+      "for",
+      "until"
+    ],
+    "hint": "La phrase donne le début de la période, pas sa durée.",
+    "rule": "Since + point de départ = depuis.",
+    "answer": 1,
+    "feedback": [
+      "During veut dire pendant. Il ne marque pas ici le début de la période.",
+      "Since indique quand la période a commencé.",
+      "For sert à donner une durée, comme for three years.",
+      "Until indique une fin. Ici, on indique le début d’une période encore en cours."
+    ],
+    "id": "q015"
+  },
+  {
+    "category": "Expression professionnelle",
+    "topic": "Sous garantie",
+    "sentence": "The printer is still under _____.",
+    "translation": "L’imprimante est encore sous garantie.",
+    "options": [
+      "purchase",
+      "invoice",
+      "receipt",
+      "warranty"
+    ],
+    "hint": "Le fabricant couvre encore les réparations.",
+    "rule": "Under warranty = sous garantie.",
+    "answer": 3,
+    "feedback": [
+      "Purchase veut dire achat. Under purchase ne veut pas dire sous garantie.",
+      "Invoice veut dire facture. Une facture est un document, pas une garantie.",
+      "Receipt veut dire reçu. Under receipt ne veut pas dire sous garantie.",
+      "Under warranty = sous garantie."
+    ],
+    "id": "q016"
+  },
+  {
+    "category": "Grammaire",
+    "topic": "Pendant une durée",
+    "sentence": "She has managed this department _____ five years.",
+    "translation": "Elle dirige ce service depuis cinq ans.",
+    "options": [
+      "for",
+      "from",
+      "during",
+      "since"
+    ],
+    "hint": "La phrase dit combien de temps, et non depuis quelle date.",
+    "rule": "For + durée : for two weeks = depuis ou pendant deux semaines.",
+    "answer": 0,
+    "feedback": [
+      "For introduit la durée : combien de temps cela dure.",
+      "From donne un départ. Ici, la phrase donne une durée.",
+      "During se place devant une période identifiée, comme during the meeting ; pas cette durée seule.",
+      "Since introduit un début précis, comme since Monday."
+    ],
+    "id": "q017"
+  },
+  {
+    "category": "Expression professionnelle",
+    "topic": "Au nom de",
+    "sentence": "On _____ of the team, thank you for your help.",
+    "translation": "Au nom de l’équipe, merci pour ton aide.",
+    "options": [
+      "purpose",
+      "side",
+      "behalf",
+      "regard"
+    ],
+    "hint": "Une personne parle pour tout un groupe.",
+    "rule": "On behalf of = au nom de.",
+    "answer": 2,
+    "feedback": [
+      "On purpose veut dire volontairement. On purpose of ne convient pas ici.",
+      "On the side of peut vouloir dire du côté de, mais on side of ne convient pas.",
+      "On behalf of = au nom de.",
+      "With regard to veut dire concernant. On regard of ne convient pas."
+    ],
+    "id": "q018"
+  },
+  {
+    "category": "Grammaire",
+    "topic": "Après décider",
+    "sentence": "The company decided _____ a new branch.",
+    "translation": "L’entreprise a décidé d’ouvrir une nouvelle agence.",
+    "options": [
+      "to open",
+      "open",
+      "opened",
+      "opening"
+    ],
+    "hint": "On dit décider de faire quelque chose : decide to…",
+    "rule": "Decide to + verbe simple.",
+    "answer": 0,
+    "feedback": [
+      "Decide to open veut dire décider d’ouvrir.",
+      "Il manque to entre decided et open.",
+      "Opened est une forme passée. Après decided, on utilise ici to open.",
+      "Opening ne suit pas directement decided dans cette construction."
+    ],
+    "id": "q019"
+  },
+  {
+    "category": "Expression professionnelle",
+    "topic": "À l’avance",
+    "sentence": "Please book your room in _____.",
+    "translation": "Merci de réserver ta chambre à l’avance.",
+    "options": [
+      "early",
+      "front",
+      "advance",
+      "ahead"
+    ],
+    "hint": "L’action doit se faire avant la date prévue.",
+    "rule": "In advance = à l’avance.",
+    "answer": 2,
+    "feedback": [
+      "Early veut dire tôt, mais on ne dit pas in early pour à l’avance.",
+      "In front veut dire devant, dans l’espace. Il ne veut pas dire à l’avance.",
+      "In advance = à l’avance.",
+      "Ahead peut exprimer une avance, mais on ne dit pas in ahead."
+    ],
+    "id": "q020"
+  }
+]
