@@ -30,9 +30,9 @@ class Element {
 const html=fs.readFileSync('public/student/index.html','utf8');
 function boot(storage=new Map()){
 const els=Object.fromEntries([...html.matchAll(/id="([^"]+)"/g)].map(m=>[m[1],new Element()]));
-const context={window:{TOEIC_QUESTIONS:bank},confirm:()=>true,document:{getElementById:id=>{assert.ok(els[id],id);return els[id]},createElement:t=>new Element(t),createTextNode:s=>{const n=new Element();n.textContent=s;return n},body:new Element()},localStorage:{getItem:k=>storage.get(k)??null,setItem:(k,v)=>storage.set(k,v),get length(){return storage.size},key:i=>[...storage.keys()][i]}};
+const context={window:{TOEIC_QUESTIONS:bank},confirm:()=>true,fetch:async()=>({status:401,json:async()=>({})}),document:{getElementById:id=>{assert.ok(els[id],id);return els[id]},createElement:t=>new Element(t),createTextNode:s=>{const n=new Element();n.textContent=s;return n},body:new Element()},localStorage:{getItem:k=>storage.get(k)??null,setItem:(k,v)=>storage.set(k,v),get length(){return storage.size},key:i=>[...storage.keys()][i]}};
 for(const name of ['config','hints','app'])vm.runInNewContext(fs.readFileSync(`public/student/${name}.js`,'utf8'),context);
-return {els,storage,answer:i=>els.options.querySelectorAll('button')[i].click()};
+return {els,storage,context,answer:i=>els.options.querySelectorAll('button')[i].click()};
 }
 const a=boot();assert.equal(a.els.options.children.length,4);a.els['hint-button'].click();assert.ok(a.els.hint.textContent.includes(bank[0].rule));
 a.answer((bank[0].answer+1)%4);assert.equal(a.els.feedback.hidden,false);assert.ok(a.els.verdict.textContent.includes(bank[0].options[bank[0].answer]));
@@ -42,3 +42,13 @@ const c=boot();for(let i=0;i<500;i++){assert.equal(c.els.options.children.length
 const old=new Map([['toeic-pocket-stage1-v1:user:old',JSON.stringify({cursor:12,answers:{q001:{choice:bank[0].answer}}})]]);const d=boot(old);assert.equal(d.els.feedback.hidden,true);assert.equal(d.els['saved-list'].children.length,1);d.els['saved-list'].children[0].click();assert.match(d.els.position.textContent,/Question 13/);assert.ok(old.has('toeic-pocket-stage1-v1:user:old'));
 assert.doesNotMatch(html, /login-screen|practice-grade|sync.js|auth.js|game-panel/);
 console.log('PASS: 500 questions preserved, hints, correction, review, reload, series, full course and explicit legacy recovery.');
+
+(async()=>{
+const e=boot();await new Promise(resolve=>setImmediate(resolve));e.answer((bank[0].answer+1)%4);
+e.context.fetch=async()=>({status:200,ok:true,json:async()=>({state:{cursor:2,answers:{q001:{choice:bank[0].answer},q003:{choice:bank[2].answer}}}})});
+e.els['recover-server'].click();await new Promise(resolve=>setImmediate(resolve));
+const saved=JSON.parse(e.storage.get('english-pocket-simple-v1'));
+assert.equal(saved.answers.q001.choice,(bank[0].answer+1)%4);assert.equal(saved.answers.q003.choice,bank[2].answer);
+assert.ok(e.storage.get('english-pocket-before-recovery-v1'));assert.match(e.els['recover-message'].textContent,/2 anciennes réponses/);
+console.log('PASS: server recovery preserves new answers and saves a backup.');
+})().catch(error=>{console.error(error);process.exitCode=1});

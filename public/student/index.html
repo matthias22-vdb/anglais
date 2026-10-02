@@ -15,13 +15,13 @@
 
 
 <script defer src="./hints.js?v=22"></script>
-<script defer src="./app.js?v=34"></script>
+<script defer src="./app.js?v=35"></script>
 
 </head>
 <body>
 <div class="shell" id="app-shell">
 <header class="app-header"><a class="brand" href="./"><span class="mark" aria-hidden="true">E</span><span><strong id="product-name">ENGLISH POCKET EXAM</strong><small id="product-description">Questions et explications</small></span></a><button id="reading-size" type="button" class="help-button" aria-pressed="false">Agrandir le texte</button></header>
-<details id="saved-work" class="about" hidden><summary>Reprendre mes anciennes réponses</summary><p>Des sauvegardes existent dans ce navigateur. Choisis celle qui t’appartient. La reprise remplace les réponses de cette version ; les anciennes sauvegardes sont conservées.</p><div id="saved-list"></div></details>
+<details id="saved-work" class="about"><summary>Reprendre mes anciennes réponses</summary><p>Des sauvegardes existent dans ce navigateur. Choisis celle qui t’appartient. La reprise remplace les réponses de cette version ; les anciennes sauvegardes sont conservées.</p><div id="saved-list"></div><button id="recover-server" type="button" class="help-button">Retrouver mes réponses de l’ancienne version</button><p id="recover-message" role="status"></p><a id="recover-account" href="/signin-with-chatgpt?return_to=%2Fstudent%2Findex.html" hidden>Ouvrir mon ancien compte ChatGPT pour la récupération</a></details>
   <p id="save-warning" class="warning" role="alert" hidden></p>
   <nav class="modes" aria-label="Mode d’entraînement">
     <button type="button" id="learn" class="active" aria-pressed="true">M’entraîner</button>

@@ -100,5 +100,36 @@ try {
     $('saved-list').append(button); $('saved-work').hidden = false;
   }
 } catch {}
+async function recoverServer(automatic = false) {
+  const button = $('recover-server'); button.disabled = true;
+  try {
+    const response = await fetch('/api/recover-progress', { cache: 'no-store' });
+    const result = await response.json();
+    if (response.status === 401) {
+      if (!automatic) { $('recover-message').textContent = result.error; $('recover-account').hidden = false; }
+      return;
+    }
+    if (!response.ok) throw new Error(result.error || 'Récupération indisponible.');
+    if (!result.state || !Object.keys(result.state.answers || {}).length) {
+      if (!automatic) $('recover-message').textContent = 'Aucune réponse retrouvée sur ce compte. Vérifie les sauvegardes locales ou le compte ChatGPT utilisé auparavant.';
+      return;
+    }
+    const marker = 'english-pocket-recovered-v1';
+    if (automatic && localStorage.getItem(marker)) return;
+    const old = clean(result.state);
+    state.answers = { ...old.answers, ...state.answers };
+    state.cursor = Math.max(state.cursor, old.cursor);
+    // Preserve a backup before changing this device's current learning state.
+    const before = localStorage.getItem(KEY);
+    if (before) localStorage.setItem('english-pocket-before-recovery-v1', before);
+    save(); localStorage.setItem(marker, 'true');
+    review = false; render();
+    $('recover-message').textContent = `${Object.keys(old.answers).length} anciennes réponses récupérées. Tes nouvelles réponses sont conservées.`;
+    $('saved-work').open = true;
+  } catch (error) { if (!automatic) $('recover-message').textContent = error.message || 'Récupération indisponible.'; }
+  finally { button.disabled = false; }
+}
+$('recover-server').onclick = () => { void recoverServer(); };
 size(); render();
+void recoverServer(true);
 })();
