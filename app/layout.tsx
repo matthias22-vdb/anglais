@@ -3,7 +3,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "ENGLISH POCKET EXAM",
-  description: "Entraînement en anglais et suivi pédagogique des étudiants.",
+  description: "Questions, indices et explications simples en français.",
   icons: {
     icon: "/favicon.svg",
     shortcut: "/favicon.svg",
