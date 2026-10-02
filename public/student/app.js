@@ -5,13 +5,13 @@ const bank = window.TOEIC_QUESTIONS;
 const config = window.ENGLISH_POCKET_CONFIG;
 const KEY = 'english-pocket-simple-v1';
 let state = { cursor: 0, answers: {}, comfortable: false };
-let review = false, queue = [], reviewAt = 0;
+let review = false, queue = [], reviewAt = 0, usedHint = false;
 const byId = new Map((bank || []).map(q => [q.id, q]));
 function clean(value) {
   const answers = {};
   for (const [id, answer] of Object.entries(value?.answers || {})) {
     if (byId.has(id) && Number.isInteger(answer?.choice) && answer.choice >= 0 && answer.choice < 4)
-      answers[id] = { choice: answer.choice, needsReview: answer.needsReview === true || answer.choice !== byId.get(id).answer };
+      answers[id] = { choice: answer.choice, assisted: answer.assisted === true, needsReview: answer.needsReview === true || answer.assisted === true || answer.choice !== byId.get(id).answer };
   }
   return { cursor: Number.isInteger(value?.cursor) ? Math.max(0, Math.min(bank.length - 1, value.cursor)) : 0, answers, comfortable: value?.comfortable === true };
 }
@@ -28,7 +28,15 @@ $('trademark-notice').textContent = config.trademarkNotice;
 const mistakes = () => bank.filter(q => state.answers[q.id]?.needsReview).map(q => q.id);
 const current = () => review ? byId.get(queue[reviewAt]) : bank[state.cursor];
 function focus() { ($('quiz').hidden ? $('end-title') : $('sentence')).focus({ preventScroll: true }); }
-function size() { document.body.classList.toggle('comfortable', state.comfortable); $('reading-size').setAttribute('aria-pressed', String(state.comfortable)); $('reading-size').textContent = state.comfortable ? 'Taille habituelle' : 'Agrandir le texte'; }
+function grade() {
+  const done = Object.keys(state.answers).length;
+  const correct = bank.filter(q => state.answers[q.id]?.choice === q.answer && !state.answers[q.id].assisted && !state.answers[q.id].needsReview).length;
+  const mastery = done ? 14 * correct / done : 0;
+  const effort = 6 * Math.min(done / 100, 1);
+  $('practice-grade').textContent = done ? (mastery + effort).toFixed(2).replace('.', ',') : '—';
+  $('grade-breakdown').textContent = `Réussite ${mastery.toFixed(2).replace('.', ',')} / 14 · Effort ${effort.toFixed(2).replace('.', ',')} / 6`;
+}
+function size() { document.body.classList.toggle('comfortable', state.comfortable); }
 function series() {
   $('series-label').textContent = review ? 'Revoir mes erreurs' : `Série ${Math.floor(state.cursor / 20) + 1} sur 25`;
   $('series-list').replaceChildren();
@@ -61,7 +69,7 @@ function feedback(q, answer) {
   $('next').hidden = false;
 }
 function render() {
-  series(); const q = current(); $('quiz').hidden = !q; $('empty').hidden = !!q;
+  grade(); series(); usedHint = false; const q = current(); $('quiz').hidden = !q; $('empty').hidden = !!q;
   if (!q) { $('end-title').textContent = review ? 'Révision terminée' : 'Parcours terminé'; $('end-text').textContent = 'Tu peux reprendre les exercices ou choisir une série.'; $('review-end').hidden = mistakes().length === 0; return; }
   $('category').textContent = q.category; $('position').textContent = `Question ${bank.indexOf(q) + 1} / ${bank.length}`;
   $('progress').value = bank.indexOf(q) % 20; sentence(q, false);
@@ -76,19 +84,19 @@ function render() {
     const button = document.createElement('button'); button.type = 'button'; button.className = 'option';
     const letter = document.createElement('span'); letter.className = 'letter'; letter.textContent = 'ABCD'[choice];
     const text = document.createElement('span'); text.className = 'word'; text.textContent = word; button.append(letter, text);
-    button.onclick = () => { const answer = { choice, needsReview: choice !== q.answer }; state.answers[q.id] = answer; save(); feedback(q, answer); };
+    button.onclick = () => { const answer = { choice, assisted: usedHint, needsReview: choice !== q.answer || usedHint }; state.answers[q.id] = answer; save(); grade(); feedback(q, answer); };
     $('options').append(button);
   });
   if (!review && state.answers[q.id]) feedback(q, state.answers[q.id]);
 }
-$('hint-button').onclick = () => { const q = current(); if (!q) return; const help = window.PocketHints.help(q); if ($('feedback').hidden) for (const i of help.eliminated) { const button = $('options').querySelectorAll('button')[i]; button.disabled = true; button.classList.add('wrong'); } $('hint').textContent = help.text; $('hint').hidden = !$('hint').hidden; $('hint-button').setAttribute('aria-expanded', String(!$('hint').hidden)); };
+$('hint-button').onclick = () => { const q = current(); if (!q) return; if ($('feedback').hidden) usedHint = true; const help = window.PocketHints.help(q); if ($('feedback').hidden) for (const i of help.eliminated) { const button = $('options').querySelectorAll('button')[i]; button.disabled = true; button.classList.add('wrong'); } $('hint').textContent = help.text; $('hint').hidden = !$('hint').hidden; $('hint-button').setAttribute('aria-expanded', String(!$('hint').hidden)); };
 $('translation-button').onclick = () => { $('translation').hidden = !$('translation').hidden; $('translation-button').setAttribute('aria-expanded', String(!$('translation').hidden)); };
 $('next').onclick = () => { if (review) reviewAt++; else state.cursor++; save(); render(); focus(); };
 $('previous').onclick = () => { if (review) reviewAt = Math.max(0, reviewAt - 1); else state.cursor = Math.max(0, state.cursor - 1); save(); render(); focus(); };
 $('learn').onclick = $('return').onclick = () => { review = false; if (state.cursor >= bank.length) state.cursor = 0; render(); focus(); };
 $('review').onclick = $('review-end').onclick = () => { review = true; queue = mistakes(); reviewAt = 0; render(); focus(); };
 $('redo').onclick = () => { if (!confirm('Effacer les réponses de cette version pour recommencer ? Les anciennes sauvegardes restent conservées.')) return; state.answers = {}; state.cursor = 0; review = false; save(); render(); focus(); };
-$('reading-size').onclick = () => { state.comfortable = !state.comfortable; size(); save(); };
+
 // Old saves are selected explicitly: never silently mix accounts on a shared device.
 try {
   for (let i = 0; i < localStorage.length; i++) {
@@ -97,7 +105,7 @@ try {
     const count = Object.keys(old.answers).length; if (!count) continue;
     const button = document.createElement('button'); button.type = 'button'; button.className = 'help-button'; button.textContent = `Sauvegarde ${$('saved-list').children.length + 1} · ${count} réponses`;
     button.onclick = () => { if (!confirm('Reprendre cette sauvegarde à la place des réponses actuelles ?')) return; state = old; review = false; save(); size(); render(); focus(); };
-    $('saved-list').append(button); $('saved-work').hidden = false;
+    $('saved-list').append(button); 
   }
 } catch {}
 async function recoverServer(automatic = false) {
@@ -125,7 +133,7 @@ async function recoverServer(automatic = false) {
     save(); localStorage.setItem(marker, 'true');
     review = false; render();
     $('recover-message').textContent = `${Object.keys(old.answers).length} anciennes réponses récupérées. Tes nouvelles réponses sont conservées.`;
-    $('saved-work').open = true;
+    
   } catch (error) { if (!automatic) $('recover-message').textContent = error.message || 'Récupération indisponible.'; }
   finally { button.disabled = false; }
 }

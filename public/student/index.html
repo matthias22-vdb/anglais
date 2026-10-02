@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#132c4a">
+<meta name="theme-color" content="#14532d">
 <meta id="app-description-meta" name="description" content="Application d’entraînement à l’anglais avec 500 questions, des corrections et des explications simples en français.">
 <title>Application d’entraînement à l’anglais</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='15' fill='%23132c4a'/%3E%3Ctext x='32' y='44' font-size='40' text-anchor='middle' fill='white' font-family='sans-serif'%3EE%3C/text%3E%3C/svg%3E">
-<link rel="stylesheet" href="./style.css?v=34">
+<link rel="stylesheet" href="./style.css?v=36">
 
 
 <script src="./config.js?v=7"></script>
@@ -15,13 +15,13 @@
 
 
 <script defer src="./hints.js?v=22"></script>
-<script defer src="./app.js?v=35"></script>
+<script defer src="./app.js?v=36"></script>
 
 </head>
 <body>
 <div class="shell" id="app-shell">
-<header class="app-header"><a class="brand" href="./"><span class="mark" aria-hidden="true">E</span><span><strong id="product-name">ENGLISH POCKET EXAM</strong><small id="product-description">Questions et explications</small></span></a><button id="reading-size" type="button" class="help-button" aria-pressed="false">Agrandir le texte</button></header>
-<details id="saved-work" class="about"><summary>Reprendre mes anciennes réponses</summary><p>Des sauvegardes existent dans ce navigateur. Choisis celle qui t’appartient. La reprise remplace les réponses de cette version ; les anciennes sauvegardes sont conservées.</p><div id="saved-list"></div><button id="recover-server" type="button" class="help-button">Retrouver mes réponses de l’ancienne version</button><p id="recover-message" role="status"></p><a id="recover-account" href="/signin-with-chatgpt?return_to=%2Fstudent%2Findex.html" hidden>Ouvrir mon ancien compte ChatGPT pour la récupération</a></details>
+<header class="app-header"><a class="brand" href="./"><img class="mark" src="/favicon.svg" alt="" width="44" height="44"><span><strong id="product-name">ENGLISH POCKET EXAM</strong><small id="product-description">Questions et explications</small></span></a><div class="grade-card" aria-label="Note d’entraînement"><span>Ma note</span><strong><span id="practice-grade">—</span> <small>/ 20</small></strong><small id="grade-breakdown">Réussite / 14 · Effort / 6</small></div></header>
+<details id="saved-work" class="about" hidden><summary>Reprendre mes anciennes réponses</summary><p>Des sauvegardes existent dans ce navigateur. Choisis celle qui t’appartient. La reprise remplace les réponses de cette version ; les anciennes sauvegardes sont conservées.</p><div id="saved-list"></div><button id="recover-server" type="button" class="help-button">Retrouver mes réponses de l’ancienne version</button><p id="recover-message" role="status"></p><a id="recover-account" href="/signin-with-chatgpt?return_to=%2Fstudent%2Findex.html" hidden>Ouvrir mon ancien compte ChatGPT pour la récupération</a></details>
   <p id="save-warning" class="warning" role="alert" hidden></p>
   <nav class="modes" aria-label="Mode d’entraînement">
     <button type="button" id="learn" class="active" aria-pressed="true">M’entraîner</button>

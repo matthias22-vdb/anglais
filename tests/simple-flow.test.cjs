@@ -34,13 +34,13 @@ const context={window:{TOEIC_QUESTIONS:bank},confirm:()=>true,fetch:async()=>({s
 for(const name of ['config','hints','app'])vm.runInNewContext(fs.readFileSync(`public/student/${name}.js`,'utf8'),context);
 return {els,storage,context,answer:i=>els.options.querySelectorAll('button')[i].click()};
 }
-const a=boot();assert.equal(a.els.options.children.length,4);a.els['hint-button'].click();assert.ok(a.els.hint.textContent.includes(bank[0].rule));
-a.answer((bank[0].answer+1)%4);assert.equal(a.els.feedback.hidden,false);assert.ok(a.els.verdict.textContent.includes(bank[0].options[bank[0].answer]));
+const a=boot();assert.equal(a.els.options.children.length,4);assert.equal(a.els['practice-grade'].textContent,'—');a.els['hint-button'].click();assert.ok(a.els.hint.textContent.includes(bank[0].rule));
+a.answer((bank[0].answer+1)%4);assert.equal(a.els['practice-grade'].textContent,'0,06');assert.equal(a.els.feedback.hidden,false);assert.ok(a.els.verdict.textContent.includes(bank[0].options[bank[0].answer]));
 const b=boot(a.storage);assert.equal(b.els.feedback.hidden,false);b.els.review.click();b.answer(bank[0].answer);b.els.next.click();assert.equal(b.els.quiz.hidden,true);
 b.els.learn.click();b.els['series-list'].children[1].click();assert.match(b.els.position.textContent,/Question 21/);
-const c=boot();for(let i=0;i<500;i++){assert.equal(c.els.options.children.length,4);c.answer(bank[i].answer);c.els.next.click();}assert.equal(c.els.quiz.hidden,true);
+const c=boot();for(let i=0;i<500;i++){assert.equal(c.els.options.children.length,4);c.answer(bank[i].answer);c.els.next.click();}assert.equal(c.els.quiz.hidden,true);assert.equal(c.els['practice-grade'].textContent,'20,00');
 const old=new Map([['toeic-pocket-stage1-v1:user:old',JSON.stringify({cursor:12,answers:{q001:{choice:bank[0].answer}}})]]);const d=boot(old);assert.equal(d.els.feedback.hidden,true);assert.equal(d.els['saved-list'].children.length,1);d.els['saved-list'].children[0].click();assert.match(d.els.position.textContent,/Question 13/);assert.ok(old.has('toeic-pocket-stage1-v1:user:old'));
-assert.doesNotMatch(html, /login-screen|practice-grade|sync.js|auth.js|game-panel/);
+assert.doesNotMatch(html, /login-screen|sync.js|auth.js|game-panel/);
 console.log('PASS: 500 questions preserved, hints, correction, review, reload, series, full course and explicit legacy recovery.');
 
 (async()=>{
