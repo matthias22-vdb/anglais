@@ -4,7 +4,8 @@ const $ = id => document.getElementById(id);
 const bank = window.TOEIC_QUESTIONS;
 const config = window.ENGLISH_POCKET_CONFIG;
 const KEY = 'english-pocket-simple-v1';
-let state = { cursor: 0, answers: {}, comfortable: false };
+const orderVersion = window.POCKET_ORDER_VERSION;
+let state = { cursor: 0, answers: {}, comfortable: false, orderVersion };
 let review = false, queue = [], reviewAt = 0, usedHint = false;
 const byId = new Map((bank || []).map(q => [q.id, q]));
 function clean(value) {
@@ -13,14 +14,28 @@ function clean(value) {
     if (byId.has(id) && Number.isInteger(answer?.choice) && answer.choice >= 0 && answer.choice < 4)
       answers[id] = { choice: answer.choice, assisted: answer.assisted === true, needsReview: answer.needsReview === true || answer.assisted === true || answer.choice !== byId.get(id).answer };
   }
-  return { cursor: Number.isInteger(value?.cursor) ? Math.max(0, Math.min(bank.length - 1, value.cursor)) : 0, answers, comfortable: value?.comfortable === true };
+  let cursor = Number.isInteger(value?.cursor) ? Math.max(0, Math.min(bank.length, value.cursor)) : 0;
+  if (value && value.orderVersion !== orderVersion && Number.isInteger(value.cursor)) {
+    const previousId = window.POCKET_PREVIOUS_ORDER?.[value.cursor];
+    const mapped = bank.findIndex(q => q.id === previousId);
+    cursor = mapped >= 0 ? mapped : Math.max(0, bank.findIndex(q => !answers[q.id]));
+  }
+  return { cursor, answers, comfortable: value?.comfortable === true, orderVersion };
 }
 function save() {
   try { localStorage.setItem(KEY, JSON.stringify(state)); $('save-warning').hidden = true; $('save-status').textContent = 'Réponses gardées sur cet appareil'; }
   catch { $('save-warning').hidden = false; $('save-warning').textContent = 'Sauvegarde indisponible : tes réponses pourraient être perdues à la fermeture.'; $('save-status').textContent = 'Sauvegarde indisponible'; }
 }
 if (!Array.isArray(bank) || bank.length < 500) { $('sentence').textContent = 'Les questions n’ont pas chargé. Recharge la page avec Internet.'; return; }
-try { state = clean(JSON.parse(localStorage.getItem(KEY) || 'null')); } catch {}
+try {
+  const raw = localStorage.getItem(KEY);
+  const previous = JSON.parse(raw || 'null');
+  state = clean(previous);
+  if (previous && previous.orderVersion !== orderVersion) {
+    localStorage.setItem('english-pocket-before-mixed-600-v1', raw);
+    save();
+  }
+} catch {}
 document.title = config.productName;
 $('product-name').textContent = config.productName;
 $('product-description').textContent = 'Questions, indices et explications';
@@ -41,7 +56,7 @@ function series() {
   $('series-label').textContent = review ? 'Revoir mes erreurs' : `Série ${Math.floor(state.cursor / 20) + 1} sur ${Math.ceil(bank.length / 20)}`;
   $('series-list').replaceChildren();
   for (let i = 0; i < Math.ceil(bank.length / 20); i++) {
-    const button = document.createElement('button'); button.type = 'button'; button.textContent = i === 25 ? 'Part 5 · Nouvelle série' : `Série ${i + 1}`;
+    const button = document.createElement('button'); button.type = 'button'; button.textContent = `Série ${i + 1}`;
     button.onclick = () => { state.cursor = i * 20; review = false; $('series-panel').open = false; save(); render(); focus(); };
     $('series-list').append(button);
   }
@@ -94,7 +109,6 @@ $('translation-button').onclick = () => { $('translation').hidden = !$('translat
 $('next').onclick = () => { if (review) reviewAt++; else state.cursor++; save(); render(); focus(); };
 $('previous').onclick = () => { if (review) reviewAt = Math.max(0, reviewAt - 1); else state.cursor = Math.max(0, state.cursor - 1); save(); render(); focus(); };
 $('learn').onclick = $('return').onclick = () => { review = false; if (state.cursor >= bank.length) state.cursor = 0; render(); focus(); };
-$('new-part5').onclick = () => { state.cursor = 500; review = false; save(); render(); focus(); };
 $('review').onclick = $('review-end').onclick = () => { review = true; queue = mistakes(); reviewAt = 0; render(); focus(); };
 $('redo').onclick = () => { if (!confirm('Effacer les réponses de cette version pour recommencer ? Les anciennes sauvegardes restent conservées.')) return; state.answers = {}; state.cursor = 0; review = false; save(); render(); focus(); };
 
