@@ -19,7 +19,7 @@ function save() {
   try { localStorage.setItem(KEY, JSON.stringify(state)); $('save-warning').hidden = true; $('save-status').textContent = 'Réponses gardées sur cet appareil'; }
   catch { $('save-warning').hidden = false; $('save-warning').textContent = 'Sauvegarde indisponible : tes réponses pourraient être perdues à la fermeture.'; $('save-status').textContent = 'Sauvegarde indisponible'; }
 }
-if (!Array.isArray(bank) || bank.length !== 500) { $('sentence').textContent = 'Les questions n’ont pas chargé. Recharge la page avec Internet.'; return; }
+if (!Array.isArray(bank) || bank.length < 500) { $('sentence').textContent = 'Les questions n’ont pas chargé. Recharge la page avec Internet.'; return; }
 try { state = clean(JSON.parse(localStorage.getItem(KEY) || 'null')); } catch {}
 document.title = config.productName;
 $('product-name').textContent = config.productName;
@@ -38,10 +38,10 @@ function grade() {
 }
 function size() { document.body.classList.toggle('comfortable', state.comfortable); }
 function series() {
-  $('series-label').textContent = review ? 'Revoir mes erreurs' : `Série ${Math.floor(state.cursor / 20) + 1} sur 25`;
+  $('series-label').textContent = review ? 'Revoir mes erreurs' : `Série ${Math.floor(state.cursor / 20) + 1} sur ${Math.ceil(bank.length / 20)}`;
   $('series-list').replaceChildren();
-  for (let i = 0; i < 25; i++) {
-    const button = document.createElement('button'); button.type = 'button'; button.textContent = `Série ${i + 1}`;
+  for (let i = 0; i < Math.ceil(bank.length / 20); i++) {
+    const button = document.createElement('button'); button.type = 'button'; button.textContent = i === 25 ? 'Part 5 · Nouvelle série' : `Série ${i + 1}`;
     button.onclick = () => { state.cursor = i * 20; review = false; $('series-panel').open = false; save(); render(); focus(); };
     $('series-list').append(button);
   }
@@ -94,6 +94,7 @@ $('translation-button').onclick = () => { $('translation').hidden = !$('translat
 $('next').onclick = () => { if (review) reviewAt++; else state.cursor++; save(); render(); focus(); };
 $('previous').onclick = () => { if (review) reviewAt = Math.max(0, reviewAt - 1); else state.cursor = Math.max(0, state.cursor - 1); save(); render(); focus(); };
 $('learn').onclick = $('return').onclick = () => { review = false; if (state.cursor >= bank.length) state.cursor = 0; render(); focus(); };
+$('new-part5').onclick = () => { state.cursor = 500; review = false; save(); render(); focus(); };
 $('review').onclick = $('review-end').onclick = () => { review = true; queue = mistakes(); reviewAt = 0; render(); focus(); };
 $('redo').onclick = () => { if (!confirm('Effacer les réponses de cette version pour recommencer ? Les anciennes sauvegardes restent conservées.')) return; state.answers = {}; state.cursor = 0; review = false; save(); render(); focus(); };
 

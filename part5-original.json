@@ -1,0 +1,382 @@
+[
+  [
+    "Despite several delays, the supplier assured us that all remaining orders would be shipped _____ the end of the week.",
+    "Malgré plusieurs retards, le fournisseur nous a assuré que toutes les commandes restantes seraient expédiées au plus tard à la fin de la semaine.",
+    [
+      "by",
+      "during",
+      "until",
+      "since"
+    ],
+    0,
+    "Échéance",
+    "By indique une date limite : au plus tard à ce moment.",
+    [
+      "By the end of the week fixe la date limite de l’expédition.",
+      "During signifie pendant et demande une période, pas ici une date limite.",
+      "Until indique qu’une situation continue jusqu’à un moment ; ce n’est pas le sens de l’expédition ici.",
+      "Since indique le point de départ d’une situation qui dure."
+    ]
+  ],
+  [
+    "Employees who wish to attend the regional conference must obtain _____ from their department manager before booking travel.",
+    "Les employés qui souhaitent assister à la conférence régionale doivent obtenir l’autorisation de leur responsable avant de réserver leur voyage.",
+    [
+      "approve",
+      "approved",
+      "approval",
+      "approving"
+    ],
+    2,
+    "Famille de mots",
+    "Après obtain, on attend ici le nom de ce qui est obtenu.",
+    [
+      "Approve est un verbe : approuver.",
+      "Approved est un participe passé ou un adjectif.",
+      "Approval est le nom qui signifie autorisation ou approbation.",
+      "Approving est une forme en -ing, pas le nom attendu ici."
+    ]
+  ],
+  [
+    "Although the new equipment is more expensive, it operates far more _____ than the machines it replaced.",
+    "Bien que le nouvel équipement soit plus coûteux, il fonctionne bien plus efficacement que les machines qu’il a remplacées.",
+    [
+      "efficiency",
+      "efficient",
+      "efficiencies",
+      "efficiently"
+    ],
+    3,
+    "Adverbe",
+    "Pour préciser comment une machine fonctionne, on utilise un adverbe.",
+    [
+      "Efficiency est un nom : l’efficacité.",
+      "Efficient est un adjectif ; il décrit un nom.",
+      "Efficiencies est un nom pluriel, pas une manière de fonctionner.",
+      "Efficiently est l’adverbe qui précise operates."
+    ]
+  ],
+  [
+    "The financial statements _____ by an independent auditor last month before they were presented to shareholders.",
+    "Les états financiers ont été examinés par un auditeur indépendant le mois dernier avant d’être présentés aux actionnaires.",
+    [
+      "reviewed",
+      "were reviewed",
+      "have reviewed",
+      "are reviewing"
+    ],
+    1,
+    "Passif au passé",
+    "Le sujet reçoit l’action. Last month situe cette action dans le passé.",
+    [
+      "Reviewed seul ne forme pas ici le passif complet.",
+      "Were reviewed est un passif au passé, accordé avec statements.",
+      "Have reviewed est actif : les états financiers ne réalisent pas l’examen.",
+      "Are reviewing est actif et au présent, contrairement au contexte."
+    ]
+  ],
+  [
+    "Customers may return unused merchandise within thirty days, _____ they can provide the original receipt.",
+    "Les clients peuvent retourner les articles inutilisés sous trente jours, à condition de présenter le reçu original.",
+    [
+      "provided that",
+      "even though",
+      "in spite of",
+      "so that"
+    ],
+    0,
+    "Condition",
+    "On cherche le lien qui introduit une condition à respecter.",
+    [
+      "Provided that signifie à condition que.",
+      "Even though signifie bien que : il introduit une opposition.",
+      "In spite of doit être suivi d’un nom ou d’une forme en -ing, pas de cette proposition.",
+      "So that exprime un but ; présenter le reçu est ici une condition."
+    ]
+  ],
+  [
+    "Because demand has exceeded expectations, the manufacturer plans to _____ production at its northern facility.",
+    "Comme la demande a dépassé les prévisions, le fabricant prévoit d’augmenter la production dans son usine du nord.",
+    [
+      "enlarge",
+      "rise",
+      "increase",
+      "grow up"
+    ],
+    2,
+    "Vocabulaire professionnel",
+    "Il faut un verbe pouvant prendre production comme complément et signifiant augmenter.",
+    [
+      "Enlarge signifie agrandir, par exemple un bâtiment ; increase production est la formulation naturelle ici.",
+      "Rise est intransitif : on ne dit pas rise production.",
+      "Increase production signifie augmenter la production.",
+      "Grow up signifie grandir, pour une personne, pas augmenter une production."
+    ]
+  ],
+  [
+    "Neither the warehouse supervisor nor the delivery drivers _____ available to discuss the revised schedule yesterday.",
+    "Ni le responsable de l’entrepôt ni les chauffeurs-livreurs n’étaient disponibles hier pour discuter du calendrier révisé.",
+    [
+      "was",
+      "is",
+      "has been",
+      "were"
+    ],
+    3,
+    "Accord du verbe",
+    "Avec neither…nor, le verbe s’accorde ici avec le sujet le plus proche : drivers.",
+    [
+      "Was est singulier, alors que drivers est pluriel.",
+      "Is est singulier et au présent.",
+      "Has been est singulier et ne convient pas avec yesterday.",
+      "Were est pluriel et au passé, comme l’exigent drivers et yesterday."
+    ]
+  ],
+  [
+    "The purchasing department will not issue payment until the supplier _____ a corrected invoice.",
+    "Le service des achats n’effectuera pas le paiement tant que le fournisseur n’aura pas envoyé une facture corrigée.",
+    [
+      "will send",
+      "sends",
+      "sending",
+      "send"
+    ],
+    1,
+    "Présent après until",
+    "Dans une proposition de temps introduite par until, le présent peut exprimer le futur.",
+    [
+      "Après until, on n’utilise pas will pour cette condition future.",
+      "Sends est au présent et s’accorde avec the supplier.",
+      "Sending ne constitue pas à lui seul le verbe conjugué attendu.",
+      "Send ne s’accorde pas avec supplier à la troisième personne du singulier."
+    ]
+  ],
+  [
+    "The revised safety procedures apply to all contractors, _____ of how long they have worked at the site.",
+    "Les procédures de sécurité révisées s’appliquent à tous les prestataires, quelle que soit leur ancienneté sur le site.",
+    [
+      "regardless",
+      "regarding",
+      "regards",
+      "regarded"
+    ],
+    0,
+    "Expression professionnelle",
+    "L’expression cherchée signifie sans tenir compte de.",
+    [
+      "Regardless of signifie sans tenir compte de ou indépendamment de.",
+      "Regarding signifie concernant et ne se construit pas avec of ici.",
+      "Regards est un nom ou une forme verbale, pas l’expression attendue.",
+      "Regarded est un participe passé ; il manque une construction verbale adaptée."
+    ]
+  ],
+  [
+    "Applicants are encouraged to submit their résumés early because only a _____ number of interviews can be scheduled each day.",
+    "Les candidats sont invités à envoyer leur CV rapidement, car seul un nombre limité d’entretiens peut être organisé chaque jour.",
+    [
+      "limit",
+      "limitation",
+      "limited",
+      "limiting"
+    ],
+    2,
+    "Adjectif",
+    "Entre a et number, il faut un adjectif décrivant le nombre disponible.",
+    [
+      "Limit est un nom ou un verbe, pas l’adjectif attendu.",
+      "Limitation est un nom : une limitation.",
+      "A limited number signifie un nombre limité.",
+      "Limiting décrit ce qui limite ; le nombre est ici lui-même limité."
+    ]
+  ],
+  [
+    "The hotel offers complimentary airport transportation to guests _____ reservations include a minimum stay of three nights.",
+    "L’hôtel propose un transport gratuit vers l’aéroport aux clients dont la réservation comprend un séjour d’au moins trois nuits.",
+    [
+      "who",
+      "whom",
+      "which",
+      "whose"
+    ],
+    3,
+    "Pronom relatif possessif",
+    "Il faut relier les clients aux réservations qui leur appartiennent.",
+    [
+      "Who désigne les personnes comme sujet, mais n’exprime pas la possession.",
+      "Whom est un pronom complément ; il ne signifie pas dont.",
+      "Which ne relie pas ici guests à leurs reservations.",
+      "Whose reservations signifie dont les réservations."
+    ]
+  ],
+  [
+    "To avoid unnecessary delays, please ensure that every section of the application form is filled _____ before submission.",
+    "Pour éviter des retards inutiles, veuillez vérifier que chaque rubrique du formulaire est remplie avant son envoi.",
+    [
+      "over",
+      "out",
+      "away",
+      "down"
+    ],
+    1,
+    "Verbe à particule",
+    "Fill out a form signifie remplir un formulaire.",
+    [
+      "Fill over n’est pas l’expression utilisée pour compléter un formulaire.",
+      "Filled out signifie rempli, en parlant d’un formulaire.",
+      "Fill away n’est pas la construction attendue.",
+      "Fill down peut désigner une commande de tableur, pas le remplissage du formulaire ici."
+    ]
+  ],
+  [
+    "The sales director postponed the product launch _____ receiving the results of the final quality inspection.",
+    "La directrice commerciale a reporté le lancement du produit après avoir reçu les résultats du dernier contrôle qualité.",
+    [
+      "after",
+      "because",
+      "although",
+      "once"
+    ],
+    0,
+    "Préposition et forme en -ing",
+    "Le mot choisi doit pouvoir précéder receiving sans sujet explicite.",
+    [
+      "After receiving est une construction correcte : après avoir reçu.",
+      "Because demande une proposition, ou because of suivi d’un groupe nominal.",
+      "Although demande une proposition complète avec sujet et verbe, pas receiving seul.",
+      "Once demande ici une proposition comme once she received, pas once receiving."
+    ]
+  ],
+  [
+    "The customer service team has received _____ complaints since the company introduced its improved tracking system.",
+    "Le service client a reçu moins de réclamations depuis que l’entreprise a lancé son système de suivi amélioré.",
+    [
+      "less",
+      "little",
+      "fewer",
+      "much"
+    ],
+    2,
+    "Quantité",
+    "Complaints est un nom dénombrable pluriel.",
+    [
+      "Pour une comparaison avec un nom dénombrable pluriel, l’usage attendu ici est fewer.",
+      "Little accompagne normalement un nom indénombrable.",
+      "Fewer complaints signifie moins de réclamations.",
+      "Much accompagne normalement un nom indénombrable, pas complaints."
+    ]
+  ],
+  [
+    "The consultant’s recommendations were based on a _____ analysis of the company’s operating costs.",
+    "Les recommandations du consultant reposaient sur une analyse approfondie des coûts d’exploitation de l’entreprise.",
+    [
+      "thoroughly",
+      "thoroughness",
+      "thoroughnesses",
+      "thorough"
+    ],
+    3,
+    "Adjectif",
+    "Un adjectif placé devant analysis décrit la qualité de l’analyse.",
+    [
+      "Thoroughly est un adverbe ; il ne décrit pas directement analysis.",
+      "Thoroughness est un nom, pas l’adjectif attendu.",
+      "Thoroughnesses est une forme nominale plurielle ; il faut ici un adjectif devant analysis.",
+      "A thorough analysis signifie une analyse approfondie."
+    ]
+  ],
+  [
+    "Visitors must wear identification badges at all times _____ they are inside the research facility.",
+    "Les visiteurs doivent porter leur badge d’identification en permanence lorsqu’ils se trouvent dans le centre de recherche.",
+    [
+      "during",
+      "while",
+      "despite",
+      "throughout"
+    ],
+    1,
+    "Conjonction de temps",
+    "Le mot est suivi d’une proposition complète : they are inside…",
+    [
+      "During doit être suivi d’un nom ou d’un groupe nominal.",
+      "While peut introduire une proposition et signifie pendant que.",
+      "Despite introduit une opposition et est suivi d’un nom ou d’une forme en -ing.",
+      "Throughout doit être suivi d’un groupe nominal, pas de they are."
+    ]
+  ],
+  [
+    "The regional manager asked the accounting team to _____ the discrepancy before the annual report was finalized.",
+    "Le responsable régional a demandé à l’équipe comptable de résoudre l’écart avant la finalisation du rapport annuel.",
+    [
+      "resolve",
+      "dissolve",
+      "reserve",
+      "preserve"
+    ],
+    0,
+    "Vocabulaire professionnel",
+    "Une discrepancy est une différence incohérente qu’il faut expliquer ou résoudre.",
+    [
+      "Resolve a discrepancy signifie résoudre un écart ou une incohérence.",
+      "Dissolve signifie dissoudre, par exemple une substance ou une organisation.",
+      "Reserve signifie réserver ; il ne convient pas avec discrepancy.",
+      "Preserve signifie conserver ; le but est de résoudre l’écart."
+    ]
+  ],
+  [
+    "As soon as the contract has been signed, the legal department _____ copies to all parties involved.",
+    "Dès que le contrat aura été signé, le service juridique distribuera des copies à toutes les parties concernées.",
+    [
+      "distributing",
+      "has distributed",
+      "will distribute",
+      "to distribute"
+    ],
+    2,
+    "Futur dans la proposition principale",
+    "La signature déclenchera une action future dans la proposition principale.",
+    [
+      "Distributing seul n’est pas un verbe conjugué complet.",
+      "Has distributed exprime une action déjà accomplie, contrairement à la chronologie annoncée.",
+      "Will distribute exprime l’action future qui suivra la signature.",
+      "To distribute est un infinitif, pas le verbe conjugué attendu."
+    ]
+  ],
+  [
+    "The company agreed to reimburse employees for travel expenses _____ during the mandatory training session.",
+    "L’entreprise a accepté de rembourser les frais de déplacement engagés par les employés pendant la formation obligatoire.",
+    [
+      "incurring",
+      "incur",
+      "incurs",
+      "incurred"
+    ],
+    3,
+    "Participe passé",
+    "Les frais subissent l’action : ce sont les dépenses qui ont été engagées.",
+    [
+      "Incurring est une forme active en -ing ; les frais ne réalisent pas l’action.",
+      "Incur est une base verbale, pas la forme décrivant expenses ici.",
+      "Incurs est un verbe conjugué au singulier, sans sujet adapté à cette place.",
+      "Expenses incurred signifie frais engagés : le participe passé décrit expenses."
+    ]
+  ],
+  [
+    "The marketing team must submit the proposal by Friday in order to _____ the client’s deadline.",
+    "L’équipe marketing doit remettre la proposition avant vendredi afin de respecter l’échéance du client.",
+    [
+      "arrive",
+      "meet",
+      "attend",
+      "reach out"
+    ],
+    1,
+    "Expression professionnelle",
+    "L’expression cherchée signifie respecter une échéance.",
+    [
+      "Arrive signifie arriver et ne prend pas deadline comme complément direct ici.",
+      "Meet a deadline signifie respecter une échéance.",
+      "Attend signifie assister à un événement, pas respecter un délai.",
+      "Reach out signifie prendre contact et ne se construit pas ainsi avec deadline."
+    ]
+  ]
+]

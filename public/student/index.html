@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#14532d">
-<meta id="app-description-meta" name="description" content="Application d’entraînement à l’anglais avec 500 questions, des corrections et des explications simples en français.">
+<meta id="app-description-meta" name="description" content="Application d’entraînement à l’anglais avec 520 questions, des corrections et des explications simples en français.">
 <title>Application d’entraînement à l’anglais</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='15' fill='%23132c4a'/%3E%3Ctext x='32' y='44' font-size='40' text-anchor='middle' fill='white' font-family='sans-serif'%3EE%3C/text%3E%3C/svg%3E">
 <link rel="stylesheet" href="./style.css?v=37">
@@ -12,10 +12,11 @@
 
 <script src="./config.js?v=7"></script>
 <script defer src="./questions.js?v=4"></script>
+<script defer src="./part5.js?v=38"></script>
 
 
 <script defer src="./hints.js?v=22"></script>
-<script defer src="./app.js?v=36"></script>
+<script defer src="./app.js?v=38"></script>
 
 </head>
 <body>
@@ -27,13 +28,14 @@
     <button type="button" id="learn" class="active" aria-pressed="true">M’entraîner</button>
     <button type="button" id="review" aria-pressed="false">Revoir mes erreurs</button>
   </nav>
+  <button id="new-part5" type="button" class="help-button" style="width:100%;margin-bottom:12px">Nouvelle série · Part 5 · 20 questions</button>
   <details class="series-picker" id="series-panel">
-    <summary><span id="series-label">Série 1 sur 25</span><span class="series-caption">Choisir une série</span></summary>
+    <summary><span id="series-label">Série 1 sur 26</span><span class="series-caption">Choisir une série</span></summary>
     <p class="muted">20 questions par série. Tu peux les faire à ton rythme.</p>
     <div class="series-grid" id="series-list"></div>
   </details>
   <main id="quiz" aria-label="Question d’entraînement">
-    <div class="question-top"><span id="category" class="tag">Grammaire</span><span id="position">Question 1 / 500</span></div>
+    <div class="question-top"><span id="category" class="tag">Grammaire</span><span id="position">Question 1 / 520</span></div>
     <progress id="progress" max="20" value="0" aria-label="Avancement dans la série"></progress>
     <h1 id="sentence" lang="en" tabindex="-1">Chargement de la question…</h1>
     <p class="instruction">Touche une réponse : elle sera corrigée tout de suite.</p>
@@ -61,7 +63,7 @@
     <button type="button" id="review-end" class="secondary">Revoir mes erreurs</button>
     <button type="button" id="redo" class="plain">Recommencer le parcours</button>
   </section>
-<details class="about"><summary>À propos</summary><p>250 questions de grammaire et 250 expressions professionnelles, avec indices, traductions et explications.</p><p>Tes réponses sont gardées dans ce navigateur, sur cet appareil. Il n’y a pas de compte ni de synchronisation entre appareils. Effacer les données du navigateur efface cette sauvegarde.</p><p id="trademark-notice"></p></details>
+<details class="about"><summary>À propos</summary><p>500 questions de base et une nouvelle série originale de 20 questions de Part 5, avec indices, traductions et explications.</p><p>Tes réponses sont gardées dans ce navigateur, sur cet appareil. Il n’y a pas de compte ni de synchronisation entre appareils. Effacer les données du navigateur efface cette sauvegarde.</p><p id="trademark-notice"></p></details>
   <noscript>Active JavaScript dans ton navigateur pour utiliser le quiz.</noscript>
 </div>
 </body></html>
