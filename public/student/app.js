@@ -12,7 +12,8 @@ function clean(value) {
   const answers = {};
   for (const [id, answer] of Object.entries(value?.answers || {})) {
     if (byId.has(id) && Number.isInteger(answer?.choice) && answer.choice >= 0 && answer.choice < 4)
-      answers[id] = { choice: answer.choice, assisted: answer.assisted === true, needsReview: answer.needsReview === true || answer.assisted === true || answer.choice !== byId.get(id).answer };
+      answers[id] = { choice: answer.choice, assisted: answer.assisted === true, needsReview: answer.needsReview === true || answer.assisted === true || answer.choice !== byId.get(id).answer,
+        errors: Math.max(Number.isSafeInteger(answer.errors) && answer.errors >= 0 ? answer.errors : 0, answer.choice !== byId.get(id).answer || (answer.needsReview === true && !answer.assisted) ? 1 : 0) };
   }
   let cursor = Number.isInteger(value?.cursor) ? Math.max(0, Math.min(bank.length, value.cursor)) : 0;
   if (value && value.orderVersion !== orderVersion && Number.isInteger(value.cursor)) {
@@ -40,8 +41,39 @@ document.title = config.productName;
 $('product-name').textContent = config.productName;
 $('product-description').textContent = 'Questions, indices et explications';
 $('trademark-notice').textContent = config.trademarkNotice;
-const mistakes = () => bank.filter(q => state.answers[q.id]?.needsReview).map(q => q.id);
+const mistakes = () => bank.filter(q => state.answers[q.id]?.needsReview && state.answers[q.id]?.errors > 0).map(q => q.id);
 const current = () => review ? byId.get(queue[reviewAt]) : bank[state.cursor];
+function reviewSummary() {
+  const remaining = mistakes().length;
+  $('error-count').textContent = remaining;
+  $('review-status').hidden = !review;
+  $('review-status').textContent = `${remaining} erreur${remaining > 1 ? 's' : ''} à revoir. Une bonne réponse sans indice la retire de la liste.`;
+}
+function errorStats() {
+  const groups = new Map();
+  for (const q of bank) {
+    const answer = state.answers[q.id];
+    if (!answer?.errors) continue;
+    const topic = q.topic || q.category;
+    const row = groups.get(topic) || { topic, errors: 0, pending: 0 };
+    row.errors += answer.errors;
+    if (answer.needsReview) row.pending++;
+    groups.set(topic, row);
+  }
+  const rows = [...groups.values()].sort((a, b) => b.errors - a.errors || b.pending - a.pending || a.topic.localeCompare(b.topic, 'fr')).slice(0, 5);
+  $('error-stats-body').replaceChildren();
+  $('error-stats-empty').hidden = rows.length > 0;
+  $('error-stats-table').hidden = rows.length === 0;
+  for (const row of rows) {
+    const tr = document.createElement('tr');
+    for (const [i, value] of [row.topic, row.errors, row.pending].entries()) {
+      const cell = document.createElement(i === 0 ? 'th' : 'td');
+      if (i === 0) cell.setAttribute('scope', 'row');
+      cell.textContent = value; tr.append(cell);
+    }
+    $('error-stats-body').append(tr);
+  }
+}
 function focus() { ($('quiz').hidden ? $('end-title') : $('sentence')).focus({ preventScroll: true }); }
 function grade() {
   const done = Object.keys(state.answers).length;
@@ -53,6 +85,7 @@ function grade() {
 }
 function size() { document.body.classList.toggle('comfortable', state.comfortable); }
 function series() {
+  $('series-panel').hidden = review;
   $('series-label').textContent = review ? 'Revoir mes erreurs' : `Série ${Math.floor(state.cursor / 20) + 1} sur ${Math.ceil(bank.length / 20)}`;
   $('series-list').replaceChildren();
   for (let i = 0; i < Math.ceil(bank.length / 20); i++) {
@@ -82,32 +115,49 @@ function feedback(q, answer) {
     if (i !== q.answer) { const li = document.createElement('li'); const title = document.createElement('strong'); title.textContent = `${'ABCD'[i]}. ${word} : `; li.append(title, document.createTextNode(q.feedback[i])); $('reasons').append(li); }
   });
   $('next').hidden = false;
+  $('review-result').hidden = !review;
+  if (review) $('review-result').textContent = correct && !answer.assisted
+    ? 'Erreur corrigée : cette question est retirée de tes erreurs et compte maintenant dans tes réussites.'
+    : correct ? 'Bien joué avec l’indice. Cette question reste à revoir pour la réussir sans aide.'
+    : 'Cette question reste dans tes erreurs. Le petit repère ci-dessous t’aidera au prochain essai.';
 }
 function render() {
-  grade(); series(); usedHint = false; const q = current(); $('quiz').hidden = !q; $('empty').hidden = !!q;
-  if (!q) { $('end-title').textContent = review ? 'Révision terminée' : 'Parcours terminé'; $('end-text').textContent = 'Tu peux reprendre les exercices ou choisir une série.'; $('review-end').hidden = mistakes().length === 0; return; }
-  $('category').textContent = q.category; $('position').textContent = `Question ${bank.indexOf(q) + 1} / ${bank.length}`;
-  $('progress').value = bank.indexOf(q) % 20; sentence(q, false);
+  grade(); series(); reviewSummary(); errorStats(); usedHint = false; const q = current(); $('quiz').hidden = !q; $('empty').hidden = !!q;
+  if (!q) {
+    const remaining = mistakes().length;
+    $('end-title').textContent = review ? remaining ? 'Tour de révision terminé' : 'Toutes tes erreurs sont corrigées !' : 'Parcours terminé';
+    $('end-text').textContent = review ? remaining ? `${remaining} erreur${remaining > 1 ? 's restent' : ' reste'} à retravailler. Tu peux refaire uniquement celles-ci.` : 'Tes réponses corrigées sont comptées dans tes réussites. Tu peux reprendre ton entraînement.' : 'Tu peux reprendre les exercices ou choisir une série.';
+    $('review-end').hidden = remaining === 0; return;
+  }
+  $('category').textContent = q.category; $('position').textContent = review ? `Question ${reviewAt + 1} / ${queue.length}` : `Question ${bank.indexOf(q) + 1} / ${bank.length}`;
+  $('progress').max = review ? queue.length : 20;
+  $('progress').value = review ? reviewAt : bank.indexOf(q) % 20;
+  $('progress').setAttribute('aria-label', review ? 'Avancement dans ce tour de révision' : 'Avancement dans la série');
+  sentence(q, false); $('review-result').hidden = true;
   $('feedback').hidden = true; $('hint').hidden = true; $('translation').hidden = true;
   $('hint-button').setAttribute('aria-expanded', 'false'); $('translation-button').setAttribute('aria-expanded', 'false');
   $('translation').textContent = q.translation; $('alternatives').open = false; $('next').hidden = true; $('pause').hidden = true;
   $('reasoning').hidden = true; $('validate').hidden = true;
-  $('previous').disabled = review ? reviewAt === 0 : state.cursor === 0;
+  $('previous').disabled = review ? !queue.slice(0, reviewAt).some(id => state.answers[id]?.needsReview) : state.cursor === 0;
   $('next').textContent = (review ? reviewAt === queue.length - 1 : state.cursor === bank.length - 1) ? 'Terminer' : 'Question suivante';
   $('options').replaceChildren();
   q.options.forEach((word, choice) => {
     const button = document.createElement('button'); button.type = 'button'; button.className = 'option';
     const letter = document.createElement('span'); letter.className = 'letter'; letter.textContent = 'ABCD'[choice];
     const text = document.createElement('span'); text.className = 'word'; text.textContent = word; button.append(letter, text);
-    button.onclick = () => { const answer = { choice, assisted: usedHint, needsReview: choice !== q.answer || usedHint }; state.answers[q.id] = answer; save(); grade(); feedback(q, answer); };
+    button.onclick = () => {
+      const answer = { choice, assisted: usedHint, needsReview: choice !== q.answer || usedHint, errors: (state.answers[q.id]?.errors || 0) + (choice !== q.answer ? 1 : 0) };
+      state.answers[q.id] = answer; save(); grade(); reviewSummary(); errorStats(); feedback(q, answer);
+      if (review) $('progress').value = reviewAt + 1;
+    };
     $('options').append(button);
   });
   if (!review && state.answers[q.id]) feedback(q, state.answers[q.id]);
 }
 $('hint-button').onclick = () => { const q = current(); if (!q) return; if ($('feedback').hidden) usedHint = true; const help = window.PocketHints.help(q); if ($('feedback').hidden) for (const i of help.eliminated) { const button = $('options').querySelectorAll('button')[i]; button.disabled = true; button.classList.add('wrong'); } $('hint').textContent = help.text; $('hint').hidden = !$('hint').hidden; $('hint-button').setAttribute('aria-expanded', String(!$('hint').hidden)); };
 $('translation-button').onclick = () => { $('translation').hidden = !$('translation').hidden; $('translation-button').setAttribute('aria-expanded', String(!$('translation').hidden)); };
-$('next').onclick = () => { if (review) reviewAt++; else state.cursor++; save(); render(); focus(); };
-$('previous').onclick = () => { if (review) reviewAt = Math.max(0, reviewAt - 1); else state.cursor = Math.max(0, state.cursor - 1); save(); render(); focus(); };
+$('next').onclick = () => { if (review) { do { reviewAt++; } while (reviewAt < queue.length && !state.answers[queue[reviewAt]]?.needsReview); } else state.cursor++; save(); render(); focus(); };
+$('previous').onclick = () => { if (review) { do { reviewAt--; } while (reviewAt > 0 && !state.answers[queue[reviewAt]]?.needsReview); } else state.cursor = Math.max(0, state.cursor - 1); save(); render(); focus(); };
 $('learn').onclick = $('return').onclick = () => { review = false; if (state.cursor >= bank.length) state.cursor = 0; render(); focus(); };
 $('review').onclick = $('review-end').onclick = () => { review = true; queue = mistakes(); reviewAt = 0; render(); focus(); };
 $('redo').onclick = () => { if (!confirm('Effacer les réponses de cette version pour recommencer ? Les anciennes sauvegardes restent conservées.')) return; state.answers = {}; state.cursor = 0; review = false; save(); render(); focus(); };

@@ -75,3 +75,30 @@ for(const [cursor,id] of [[148,'q149'],[500,'part5-001'],[519,'part5-020']]){
 }
 const completed=boot(new Map([['english-pocket-simple-v1',JSON.stringify({cursor:600,orderVersion:'mixed-600-v1',answers:{}})]]));assert.equal(completed.els.quiz.hidden,true);
 console.log('PASS: 600 mixed unique questions, previous 520 questions unchanged, cursor migration and reload, 30 series.');
+
+// A revision session contains only actual outstanding mistakes, not the full bank.
+const errors64=Object.fromEntries(bank.slice(0,64).map(q=>[q.id,{choice:(q.answer+1)%4,needsReview:true}]));
+errors64[bank[100].id]={choice:bank[100].answer,needsReview:false};
+errors64[bank[101].id]={choice:bank[101].answer,assisted:true,needsReview:true};
+const reviewStorage=new Map([['english-pocket-simple-v1',JSON.stringify({cursor:120,orderVersion:'mixed-600-v1',answers:errors64})]]);
+const r=boot(reviewStorage);
+assert.equal(r.els['error-count'].textContent,'64');r.els.review.click();
+assert.equal(r.els.position.textContent,'Question 1 / 64');assert.equal(r.els.progress.max,64);assert.equal(r.els['series-panel'].hidden,true);
+assert.equal(r.els.feedback.hidden,true);assert.equal(r.els.options.children.length,4);
+r.answer(bank[0].answer);assert.equal(r.els['error-count'].textContent,'63');assert.match(r.els['review-result'].textContent,/retirée/);assert.equal(r.els.rule.textContent,bank[0].rule);
+r.els.next.click();assert.equal(r.els.position.textContent,'Question 2 / 64');assert.equal(r.els.previous.disabled,true);
+r.answer((bank[1].answer+1)%4);assert.equal(r.els['error-count'].textContent,'63');
+assert.equal(JSON.parse(reviewStorage.get('english-pocket-simple-v1')).answers[bank[1].id].errors,2);
+r.els.next.click();r.els.previous.click();assert.equal(r.els.position.textContent,'Question 2 / 64');assert.equal(r.els.feedback.hidden,true);
+r.els['hint-button'].click();r.answer(bank[1].answer);assert.equal(r.els['error-count'].textContent,'63');assert.match(r.els['review-result'].textContent,/reste à revoir/);
+r.els.review.click();assert.equal(r.els.position.textContent,'Question 1 / 63');
+for(let i=1;i<64;i++){r.answer(bank[i].answer);r.els.next.click();}
+assert.equal(r.els['error-count'].textContent,'0');assert.equal(r.els.quiz.hidden,true);assert.match(r.els['end-title'].textContent,/Toutes tes erreurs/);
+assert.equal(r.els['review-end'].hidden,true);assert.equal(r.els['error-stats-table'].hidden,false);
+assert.ok(r.els['error-stats-body'].children.length<=5);
+for(const row of r.els['error-stats-body'].children)assert.equal(row.children[2].textContent,'0');
+const persisted=boot(reviewStorage);assert.equal(persisted.els['error-count'].textContent,'0');persisted.els.review.click();assert.equal(persisted.els.quiz.hidden,true);
+persisted.els.learn.click();assert.equal(persisted.els.position.textContent,'Question 121 / 600');assert.equal(persisted.els['series-panel'].hidden,false);
+assert.equal(JSON.parse(reviewStorage.get('english-pocket-simple-v1')).answers[bank[0].id].errors,1);
+const emptyStats=boot();assert.equal(emptyStats.els['error-stats-table'].hidden,true);assert.equal(emptyStats.els['error-stats-empty'].hidden,false);
+console.log('PASS: 64-error-only queue, live remaining count, corrected-answer synchronization, hints, retry, historical topic stats and persistence.');

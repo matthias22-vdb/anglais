@@ -7,7 +7,7 @@
 <meta id="app-description-meta" name="description" content="Application d’entraînement à l’anglais avec 600 questions, des corrections et des explications simples en français.">
 <title>Application d’entraînement à l’anglais</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='15' fill='%23132c4a'/%3E%3Ctext x='32' y='44' font-size='40' text-anchor='middle' fill='white' font-family='sans-serif'%3EE%3C/text%3E%3C/svg%3E">
-<link rel="stylesheet" href="./style.css?v=37">
+<link rel="stylesheet" href="./style.css?v=40">
 
 
 <script src="./config.js?v=7"></script>
@@ -16,7 +16,7 @@
 
 
 <script defer src="./hints.js?v=22"></script>
-<script defer src="./app.js?v=39"></script>
+<script defer src="./app.js?v=40"></script>
 
 </head>
 <body>
@@ -26,8 +26,9 @@
   <p id="save-warning" class="warning" role="alert" hidden></p>
   <nav class="modes" aria-label="Mode d’entraînement">
     <button type="button" id="learn" class="active" aria-pressed="true">M’entraîner</button>
-    <button type="button" id="review" aria-pressed="false">Revoir mes erreurs</button>
+    <button type="button" id="review" aria-pressed="false">Revoir mes erreurs <span id="error-count">0</span></button>
   </nav>
+  <p id="review-status" class="review-status" role="status" hidden></p>
   <details class="series-picker" id="series-panel">
     <summary><span id="series-label">Série 1 sur 30</span><span class="series-caption">Choisir une série</span></summary>
     <p class="muted">20 questions par série. Tu peux les faire à ton rythme.</p>
@@ -49,6 +50,7 @@
     <section id="feedback" class="feedback" hidden>
       <h2 id="verdict" tabindex="-1" aria-live="polite"></h2>
       <p id="explanation"></p>
+      <p id="review-result" class="review-result" role="status" hidden></p>
       <div class="remember"><span class="eyebrow">LE PETIT REPÈRE À RETENIR</span><p id="rule"></p></div>
       <details id="alternatives"><summary>Pourquoi pas les autres réponses ?</summary><ul id="reasons"></ul></details>
     </section>
@@ -61,6 +63,16 @@
     <button type="button" id="return" class="primary">Reprendre le parcours</button>
     <button type="button" id="review-end" class="secondary">Revoir mes erreurs</button>
     <button type="button" id="redo" class="plain">Recommencer le parcours</button>
+  </section>
+  <section class="error-stats" aria-labelledby="error-stats-title">
+    <h2 id="error-stats-title">Mes points à travailler</h2>
+    <p class="stats-note">Les 5 sujets avec le plus d’erreurs enregistrées. Un nouvel essai raté compte comme une erreur ; les erreurs corrigées restent dans cet historique.</p>
+    <p id="error-stats-empty">Aucune erreur enregistrée pour le moment.</p>
+    <table id="error-stats-table" hidden>
+      <caption class="sr-only">Erreurs par sujet et questions restant à revoir</caption>
+      <thead><tr><th scope="col">Sujet</th><th scope="col">Erreurs</th><th scope="col">À revoir</th></tr></thead>
+      <tbody id="error-stats-body"></tbody>
+    </table>
   </section>
 <details class="about"><summary>À propos</summary><p>600 questions : les 500 questions de base sont mélangées à 100 questions originales de style Part 5, avec indices, traductions et explications.</p><p>Tes réponses sont gardées dans ce navigateur, sur cet appareil. Il n’y a pas de compte ni de synchronisation entre appareils. Effacer les données du navigateur efface cette sauvegarde.</p><p id="trademark-notice"></p></details>
   <noscript>Active JavaScript dans ton navigateur pour utiliser le quiz.</noscript>
